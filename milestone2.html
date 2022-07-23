@@ -3,36 +3,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-    <title>CSC3007 Milestone 2</title>
-  <style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css" />
+  <script src="./assetsMileStone2/master-plan-2019-subzone-boundary-no-sea-geojson.geojson"></script>
 
+    <title>CSC3007 Milestone 2</title>
+
+  <style>
+/*
     #mainDiv {
 width: 600px;
 background: #CCCCCC;
-/*/*display: flex;*/
 align-items: center;
 justify-content: center;
-    }
+    }*/
+
+      #map {
+
+    height: 750px;
+      width: 1200px;
+      margin: auto;
+
+  }
   </style>
 </head>
   
   <body>
-    <center>
-    <div id = "mainDiv">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
 
-    <h1 style = "text-align: center; font-weight: bold">Who will lead the new world order?</h1>
-    <h4 style = "text-align: center; font-weight: bold">USA has always been the leading world power after World War 2, with the new world </br>monetary system establishing  the US dollar to be the reserve currency.</br> However, with recent incidents – conflicts, war,COVID-19,  inflation, </br> will USA continue to be the leader? We take a look at the statistics.</h4>
+
+    <center>
+<!--     <div id = "mainDiv">
+ -->
+    <h1 style = "text-align: center; font-weight: bold">Singapore's E-waste Report</h1>
+    <h4 style = "text-align: center; font-weight: bold">With many green and sustainability initiatives in Singapore  – TowardsZeroWasteSG, Closing the Waste Loop, Zero Waste Masterplan in recent years to support a Clean and Green Singapore, we explore and take a look at whether the e-waste situation in Singapore have been doing well or not.</h4>
   
 
 
 
     <h4> 
-      (1) Effect of ukraine war
-       <h4>
-      The ukraine war is said to be a puppet war between USA, RUSSIA & CHINA. </br>
-      We take a look at how the ukraine war affected the most powerful countries globally.
-<!--       The Power subranking is based on an equally weighted average of scores from five country attributes that relate to a country's power: a leader, economically influential, politically influential, strong international alliances and strong military.  -->
+      (1) E-waste bins around Singapore </br>
     </h4>
+    <div id="map"></div>
 
     <h4>
       (2) Comparison of big countries CHINA USA RUSSIA, dk what dataset / category 
@@ -41,13 +52,28 @@ justify-content: center;
     <h4>
       (3) Inflation 
     </h4>
-</div>
+<!-- </div> -->
 </center>
   </body>
 
  
   <footer>
-    <script>
+
+  <script>
+   let tiles = new L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
+      detectRetina: true,
+      maxZoom: 18,
+      minZoom: 9,
+      maxBounds: L.latLngBounds(L.latLng(1.1, 103.5), L.latLng(1.5, 104.3)),
+      //Do not remove this attribution
+      attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;">' +
+                   'New OneMap | Map data © contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
+    });
+    let map = new L.Map('map', {center: [1.3521, 103.8198], zoom: 12})
+        .addLayer(tiles);
+
+    L.geoJSON(singaporePopulation).addTo(map);
+
     </script>
   </footer>
 </html>

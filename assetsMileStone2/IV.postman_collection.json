@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "80f49cc8-8845-41f7-815a-1386fa6eadc0",
+		"name": "IV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get Api token",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"unknownfame@hotmail.com\",\r\n    \"password\":\"Yoloyoloyolo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://developers.onemap.sg/privateapi/auth/post/getToken",
+					"protocol": "https",
+					"host": [
+						"developers",
+						"onemap",
+						"sg"
+					],
+					"path": [
+						"privateapi",
+						"auth",
+						"post",
+						"getToken"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all theme info",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve theme",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "get all plan area",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://developers.onemap.sg/privateapi/popapi/getAllPlanningarea?token={{token}}",
+					"protocol": "https",
+					"host": [
+						"developers",
+						"onemap",
+						"sg"
+					],
+					"path": [
+						"privateapi",
+						"popapi",
+						"getAllPlanningarea"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
