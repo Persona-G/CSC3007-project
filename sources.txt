@@ -1,0 +1,9 @@
+E-waste Bins Around Singapore:
+OneMap - https://developers.onemap.sg/privateapi/themesvc/retrieveTheme?queryName=ewaste&token={{token}}
+
+Population Density:
+Singapore URA Master Plan 2019 (For Subzone Areas) - https://data.gov.sg/dataset/master-plan-2019-subzone-boundary-no-sea?resource_id=84b62d90-c1b7-4ada-acfc-f5874b5fd945
+Singapore Population Per Subzone - https://tablebuilder.singstat.gov.sg/table/CT/17560 
+
+Survey of singapore residents knowing whether to recycle e-waste, E-waste disposal pattern:
+https://www.nea.gov.sg/media/news/news/index/stakeholders-sharing-responsibility-is-key-to-building-a-sustainable-e-waste-management-system-nea-study
