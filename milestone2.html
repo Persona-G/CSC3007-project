@@ -35,6 +35,11 @@ justify-content: center;
       font-family: arial;
     }
 
+    #chartsDiv {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
     body {
       font-family:  arial
     }
@@ -67,10 +72,15 @@ justify-content: center;
     <h2>
       (2) E-waste Recycling Statistic
     </h2>
-    <div>
-      <h3>Residents who knows how to recycle in %</h3>
-    <div id="barchart"></div>
-    <div id="piechart"></div>
+    <div id = "chartsDiv">
+    <div id="barchart">
+            <h3>Residents who knows how to recycle in %</h3>
+
+    </div>
+    <div id="piechart">
+            <h3>E-waste Disposal Patterns</h3>
+
+    </div>
     </div>
 </div>
   </body>
@@ -212,20 +222,6 @@ justify-content: center;
       svg.append("g")
         .call(d3.axisLeft(y));
 
-      var axisLabelX = -45;
-      var axisLabelY = height / 2;
-
-
-      // svg.append("g")
-      // .attr('transform', 'translate(' + axisLabelX + ', ' + axisLabelY + ')')
-      //     .append('text')
-      //     .attr("dy", ".1em")
-      //     .attr('text-anchor', 'middle')
-      //     .attr('transform', 'rotate(-90)')
-      //     .attr('class', 'axisText')
-      //     .text('Residents who knows how to recycle(%)')
-  
-
       // Bars
       svg.selectAll("mybar")
         .data(data)
@@ -234,7 +230,8 @@ justify-content: center;
           .attr("y", d => y(d.Value))
           .attr("width", x.bandwidth())
           .attr("height", d => height - y(d.Value))
-          .attr("fill", "#69b3a2")
+          .attr("fill", function(d){ return d.Value > 50 ? "#F37878" : "#FAD9A1"});
+
 
       })
 </script>
