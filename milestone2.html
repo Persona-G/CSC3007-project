@@ -175,12 +175,13 @@ justify-content: center;
           .attr("transform", `translate(${margin.left},${margin.top})`);
 
       // Parse the Data
-      d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv").then( function(data) {
+      d3.csv("https://persona-g.github.io/CSC3007-project/assetsMileStone2/m2barchart.csv").then( function(data) {
 
+        // console.log("data", data);
       // X axis
       const x = d3.scaleBand()
         .range([ 0, width ])
-        .domain(data.map(d => d.Country))
+        .domain(data.map(d => d.RecycleKnowledge))
         .padding(0.2);
       svg.append("g")
         .attr("transform", `translate(0, ${height})`)
@@ -191,7 +192,7 @@ justify-content: center;
 
       // Add Y axis
       const y = d3.scaleLinear()
-        .domain([0, 13000])
+        .domain([0, 100])
         .range([ height, 0]);
       svg.append("g")
         .call(d3.axisLeft(y));
@@ -200,7 +201,7 @@ justify-content: center;
       svg.selectAll("mybar")
         .data(data)
         .join("rect")
-          .attr("x", d => x(d.Country))
+          .attr("x", d => x(d.RecycleKnowledge))
           .attr("y", d => y(d.Value))
           .attr("width", x.bandwidth())
           .attr("height", d => height - y(d.Value))
