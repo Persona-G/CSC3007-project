@@ -83,6 +83,14 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "plan area names",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
