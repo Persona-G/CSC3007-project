@@ -46,6 +46,7 @@ justify-content: center;
         display: flex;
         flex-direction: row;
         justify-content: center;
+        padding-left: 120px;
     }
     body {
       font-family:  arial
@@ -85,7 +86,16 @@ justify-content: center;
 
     </div>
     <div id="piechart">
-            <h3>E-waste Disposal Patterns </h3>
+      <!-- H3 default style but moved more left with margin-left, make spacing nicer -->
+            <div style =  " 
+                        display: block;
+            font-size: 1.17em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            margin-left: -90px;
+            /*margin-right: 100;*/
+            font-weight: bold;
+">E-waste Disposal Patterns </div>
 
     </div>
     </div>
@@ -246,7 +256,7 @@ justify-content: center;
 <script> //Script for pie chart
 
     // set the dimensions and margins of the graph
-    const pieWidth = 900,
+    const pieWidth = 720,
         pieHeight = 450,
         pieMargin = 40;
 
@@ -259,7 +269,7 @@ justify-content: center;
         .attr("width", pieWidth)
         .attr("height", pieHeight)
       .append("g")
-        .attr("transform", `translate(${pieWidth/2}, ${pieHeight/2})`);
+        .attr("transform", `translate(${-50 + pieWidth/2}, ${pieHeight/2})`);
 
       // Parse the Data
       d3.csv("https://persona-g.github.io/CSC3007-project/m2piechart.csv").then( function(data) {
