@@ -48,6 +48,24 @@ justify-content: center;
         justify-content: center;
         padding-left: 120px;
     }
+
+    .pieSlice:hover {
+        stroke:black;
+        stroke-width: 4;
+    }
+
+    .tooltip {
+        position: absolute;
+        color: #fff;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 3px;
+        white-space: pre-line;
+        text-align: left;
+        visibility: hidden;
+        font-family: arial;
+    }
+
     body {
       font-family:  arial
     }
@@ -68,7 +86,17 @@ justify-content: center;
     <h2> 
       (1) E-waste bins around Singapore vs Population Density </br>
     </h2>
+
     <div id="map"></div>
+    <a href="https://www.onemap.gov.sg/docs/#get-theme-info">
+            [Source 1]
+    </a> 
+     <a href="https://data.gov.sg/dataset/master-plan-2019-subzone-boundary-no-sea?resource_id=84b62d90-c1b7-4ada-acfc-f5874b5fd945">
+            [Source 2]
+    </a>
+     <a href="https://tablebuilder.singstat.gov.sg/table/CT/17560">
+            [Source 3]
+    </a>
     <h3>
     As you can see, in dense areas, e-waste bins are placed relatively proportionate. This leads us to observe that </br>
     Singapore agencies have planned the placing of e-waste bins well.
@@ -83,9 +111,10 @@ justify-content: center;
     <div id = "chartsDiv">
     <div id="barchart">
             <h3>Residents who knows how to recycle in %</h3>
-
     </div>
     <div id="piechart">
+      <div class="tooltip"></div>
+
       <!-- H3 default style but moved more left with margin-left, make spacing nicer -->
             <div style =  " 
                         display: block;
@@ -96,9 +125,17 @@ justify-content: center;
             /*margin-right: 100;*/
             font-weight: bold;
 ">E-waste Disposal Patterns </div>
-
     </div>
     </div>
+            <a href="https://www.nea.gov.sg/media/news/news/index/stakeholders-sharing-responsibility-is-key-to-building-a-sustainable-e-waste-management-system-nea-study">
+            [Source 1]
+    </a>
+     <h3>
+    As you can see, only 40% knows how to recycle e-waste, and only 6% of disposed e-waste are recycled. 
+    </br> Having many e-waste bins around the population does not help if people do not recycle e-waste. </br>
+    A good way would be to increase awareness, and adopting a circular economy by holding Producers responsible 
+    for their e-waste.
+    </h3>
 </div>
   </body>
 
@@ -240,16 +277,36 @@ justify-content: center;
         .call(d3.axisLeft(y));
 
       // Bars
-      svg.selectAll("mybar")
-        .data(data)
-        .join("rect")
+      let bars = svg.selectAll("mybar")
+      .data(data)
+      .enter()
+      .append("g");
+
+      // svg.selectAll("mybar")
+      //   .data(data)
+      //   .join("rect")
+      bars.append('rect')
           .attr("x", d => x(d.RecycleKnowledge))
           .attr("y", d => y(d.Value))
           .attr("width", x.bandwidth())
           .attr("height", d => height - y(d.Value))
           .attr("fill", function(d){ return d.Value > 50 ? "#F37878" : "#FAD9A1"});
-
-
+        
+        bars.append("text")
+        .text(function(d) { 
+            return d.Value + "%";
+        })
+        .attr("x", function(d){
+            return x(d.RecycleKnowledge) + x.bandwidth()/2 + 5;
+        })
+        .attr("y", function(d){
+          console.log("y");
+            return y(d.Value) - 5;
+        })
+        .attr("font-family" , "arial")
+        .attr("font-size" , "17px")
+        .attr("fill" , "black")
+        .attr("text-anchor", "middle");
       })
 </script>
 
@@ -288,11 +345,14 @@ justify-content: center;
             .innerRadius(0)
             .outerRadius(radius)
 
+
+
           // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
           svgPie
             .selectAll('g')
             .data(data_ready)
             .join('path')
+            .attr("class", "pieSlice")
             .attr('d', arcGenerator
             )
             .attr('fill', function(d){ 
@@ -301,6 +361,21 @@ justify-content: center;
             .attr("stroke", "white")
             .style("stroke-width", "2px")
             .style("opacity", 0.7)
+            .on("mouseover", function(event, d){
+              d3.select(".tooltip")
+              .text(d.data.DisposalMethod)
+              .style("left", (event.pageX-10) + "px")
+              .style("top", (event.pageY+10) + "px")
+              .style("visibility", "visible");
+            })
+            // .on("mousemove", function(event,d){
+            //   return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
+            // })
+            .on("mouseout", function(){
+              return tooltip.style("visibility", "hidden");
+            });
+
+         
 
             //text annotation
           svgPie
@@ -353,6 +428,7 @@ justify-content: center;
             .style("alignment-baseline", "middle")
             .style("font-size", "17px");
       });
+
 
       
 </script>
