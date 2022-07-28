@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.css" />
@@ -9,114 +10,127 @@
 
   <script src="./assetsMileStone2/cleanStage2.geojson"></script>
 
-    <title>CSC3007 Milestone 2</title>
+  <title>CSC3007 Milestone 2</title>
 
   <style>
-/*
-    #mainDiv {
-width: 600px;
-background: #CCCCCC;
-align-items: center;
-justify-content: center;
-    }*/
+    #map {
 
-      #map {
-
-    height: 750px;
+      height: 750px;
       width: 1200px;
       margin: auto;
 
-  }
+    }
 
     .axisText {
-          /*fill: blue;*/
-      /*text-shadow: 3px 2px gray;*/
       font-size: 14px;
       font-family: arial;
     }
 
 
     .pieText {
-          fill: black;
-      /*text-shadow: 3px 2px gray;*/
+      fill: black;
+
       font-family: arial;
     }
 
     #chartsDiv {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        padding-left: 120px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      padding-left: 120px;
     }
 
     .pieSlice:hover {
-        stroke:black;
-        stroke-width: 4;
+      stroke: black;
+      stroke-width: 4;
     }
 
     .tooltip {
-        position: absolute;
-        color: #fff;
-        padding: 10px;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 3px;
-        white-space: pre-line;
-        text-align: left;
-        visibility: hidden;
-        font-family: arial;
+      position: absolute;
+      color: #fff;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 3px;
+      white-space: pre-line;
+      text-align: left;
+      visibility: hidden;
+      font-family: arial;
     }
 
     body {
-      font-family:  arial
+      font-family: arial
     }
+
+    .outline {
+            padding: 6px 8px;
+            font-family: arial;
+            background: lightgray;
+            border-radius: 5px;
+            opacity: 0.9;
+    }
+
+    .legend {
+            background-color: “black”;
+            line-height: 25px;
+            color: #555;
+            width: auto;
+        }
+
+        .legend div {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
   </style>
 </head>
-  
-  <body>
-            <script src="https://d3js.org/d3.v7.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
-            <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-    <div style="text-align: center;">
-<!--     <div id = "mainDiv">
- -->
-    <h1 style = "text-align: center; font-weight: bold">Singapore's E-waste Situation</h1>
-    <h3 style = "text-align: center; font-weight: bold">With many green and sustainability initiatives in Singapore  – TowardsZeroWasteSG, Closing the Waste Loop, Zero Waste Masterplan in recent years to support a Clean and Green Singapore, </br>we explore and take a look at whether the e-waste situation in Singapore have been doing well or not.</h3>
+
+<body>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.8.0/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <div style="text-align: center;">
+
+    <h1 style="text-align: center; font-weight: bold">Singapore's E-waste Situation</h1>
+    <h3 style="text-align: center; font-weight: bold">With many green and sustainability initiatives in Singapore –
+      TowardsZeroWasteSG, Closing the Waste Loop, Zero Waste Masterplan in recent years to support a Clean and Green
+      Singapore, we explore and take a look at whether the e-waste situation in Singapore have been doing well or not.</h3>
 
 
-    <h2> 
+    <h2>
       (1) E-waste bins around Singapore vs Population Density </br>
     </h2>
 
     <div id="map"></div>
     <a href="https://www.onemap.gov.sg/docs/#get-theme-info">
-            [Source 1]
-    </a> 
-     <a href="https://data.gov.sg/dataset/master-plan-2019-subzone-boundary-no-sea?resource_id=84b62d90-c1b7-4ada-acfc-f5874b5fd945">
-            [Source 2]
+      [Source 1]
     </a>
-     <a href="https://tablebuilder.singstat.gov.sg/table/CT/17560">
-            [Source 3]
+    <a
+      href="https://data.gov.sg/dataset/master-plan-2019-subzone-boundary-no-sea?resource_id=84b62d90-c1b7-4ada-acfc-f5874b5fd945">
+      [Source 2]
+    </a>
+    <a href="https://tablebuilder.singstat.gov.sg/table/CT/17560">
+      [Source 3]
     </a>
     <h3>
-    As you can see, in dense areas, e-waste bins are placed relatively proportionate. This leads us to observe that </br>
-    Singapore agencies have planned the placing of e-waste bins well.
-    </h3>
-
-     <h3>
-    Next, we take a look at the e-waste recycling statistic of Singaporeans to see if this have led to a positive result.
+      From the map, we can see that the number of e-waste bins available to the areas are relatively proportionate whereby denser areas having more bins. <br>
+      This leads us to observe that Singapore agencies have planned the placing of e-waste bins well to help support the initiatives. <br>
+      However, despite the amount of bins available, how many of them are being utilised? <br>
+      Next, we would be taking a look at the e-waste recycling statistic of Singaporeans to see if this has led to a positive result in the initiatives.
     </h3>
     <h2>
       (2) E-waste Recycling Statistic
     </h2>
-    <div id = "chartsDiv">
-    <div id="barchart">
-            <h3>Residents who knows how to recycle in %</h3>
-    </div>
-    <div id="piechart">
-      <div class="tooltip"></div>
+    <div id="chartsDiv">
+      <div id="barchart">
+        <h3>Residents who knows how to recycle in %</h3>
+      </div>
+      <div id="piechart">
+        <div class="tooltip"></div>
 
-      <!-- H3 default style but moved more left with margin-left, make spacing nicer -->
-            <div style =  " 
+        <!-- H3 default style but moved more left with margin-left, make spacing nicer -->
+        <div style=" 
                         display: block;
             font-size: 1.17em;
             margin-top: 1em;
@@ -125,85 +139,141 @@ justify-content: center;
             /*margin-right: 100;*/
             font-weight: bold;
 ">E-waste Disposal Patterns </div>
+      </div>
     </div>
-    </div>
-            <a href="https://www.nea.gov.sg/media/news/news/index/stakeholders-sharing-responsibility-is-key-to-building-a-sustainable-e-waste-management-system-nea-study">
-            [Source 1]
+    <a
+      href="https://www.nea.gov.sg/media/news/news/index/stakeholders-sharing-responsibility-is-key-to-building-a-sustainable-e-waste-management-system-nea-study">
+      [Source 1]
     </a>
-     <h3>
-    As you can see, only 40% knows how to recycle e-waste, and only 6% of disposed e-waste are recycled. 
-    </br> Having many e-waste bins around the population does not help if people do not recycle e-waste. </br>
-    A good way would be to increase awareness, and adopting a circular economy by holding Producers responsible 
-    for their e-waste.
+    <h3>
+      From the data, only 40% of the population knows how to recycle e-waste, and in that 40%, only 6% of the disposed e-waste are being recycled. </br> 
+      We can conclude that having many e-waste bins around the population does not help the initiatives if the people do not know how to recycle e-waste. </br>
+      So, a good way to support the initiative would be to increase the awareness on recycling, and adopting a circular economy by holding Producers responsible for their e-waste.
+      This way, with an increase in awareness, we believe that it would be more beneficial and supportive of the initiatives. </br>
+      Otherwise, no matter the amount of initiatives being initiated, none of them would work as the majority would still be considered waste.
     </h3>
-</div>
-  </body>
+  </div>
+</body>
 
- 
-  <footer>
+
+<footer>
 
 
 
   <script> //Script for leaflet map.
 
     //Functions for the map to show density and add styling
-      function colourPopDens(d) {
-            return d > 35000 ? '#b30000' :
-                d > 25000 ? '#e34a33' :
-                    d > 20000 ? '#fc8d59' :
-                        d > 10000 ? '#fdcc8a' :
-                            d > 1 ? '#fef0d9' :
-                                '#fff';
-      }
+    function colourPopDens(d) {
+      return d > 35000 ? '#b30000' :
+        d > 25000 ? '#e34a33' :
+          d > 20000 ? '#fc8d59' :
+            d > 10000 ? '#fdcc8a' :
+              d > 1 ? '#fef0d9' :
+                '#fff';
+    }
 
-      function style(feature) {
-            return {
-                fillColor: colourPopDens(feature.properties.population),
-                weight: 1,
-                opacity: 1,
-                color: "black",
-                fillOpacity: 0.65
-            };
-      }
+    function style(feature) {
+      return {
+        fillColor: colourPopDens(feature.properties.population),
+        weight: 1,
+        opacity: 1,
+        color: "black",
+        fillOpacity: 0.65
+      };
+    }
 
-      function popUp(feature, layer) {
-            layer.bindPopup(`
+    function popUp(feature, layer) {
+      layer.bindPopup(`
       <b> Subzone: </b> ${feature.properties.subZoneName} <br>
       <b> Planning Area: </b> ${feature.properties.planningAreaName} <br>
       <b> Population: </b> ${(feature.properties.population)} <br>
       `)
-            layer.on('click', function () { layer.openPopup(); })
-      }
+      layer.on('click', function () { layer.openPopup(); })
+    }
 
 
-   let tiles = new L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
+    let tiles = new L.tileLayer('https://maps-{s}.onemap.sg/v3/Default/{z}/{x}/{y}.png', {
       detectRetina: true,
       maxZoom: 18,
       minZoom: 9,
       maxBounds: L.latLngBounds(L.latLng(1.1, 103.5), L.latLng(1.5, 104.3)),
       //Do not remove this attribution
       attribution: '<img src="https://docs.onemap.sg/maps/images/oneMap64-01.png" style="height:20px;width:20px;">' +
-                   'New OneMap | Map data © contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
+        'New OneMap | Map data © contributors, <a href="http://SLA.gov.sg">Singapore Land Authority</a>'
     });
-    let map = new L.Map('map', {center: [1.3521, 103.8198], zoom: 12})
-        .addLayer(tiles);
+    let map = new L.Map('map', { center: [1.3521, 103.8198], zoom: 12 })
+      .addLayer(tiles);
 
-        //Add subzone layers from geoJSON
-   L.geoJSON(singaporePopulation, {
-          style: style,
-          onEachFeature: popUp
-      }).addTo(map);
+    //Add subzone layers from geoJSON
+    L.geoJSON(singaporePopulation, {
+      style: style,
+      onEachFeature: popUp
+    }).addTo(map);
+
+    function getColorbyCount(count) {
+      if (count > 0 && count < 10) {
+        return 'green';
+      } else if (count >= 10 && count < 100) {
+        return 'yellow';
+      } else {
+        return 'red';
+      } 
+    }
+
+    function getColorbyPopulation(population) {
+      if (population >= 1 && population < 10000) {
+        return '#fef0d9';
+      } else if (population >= 10000 && population < 20000) {
+        return '#fdcc8a';
+      } else if (population >= 20000 && population < 25000) {
+        return '#fc8d59';
+      } else if (population >= 25000 && population < 35000) {
+        return '#e34a33';
+      } else if (population >= 35000) {
+        return '#b30000';
+      }
+      else {
+        return "#fff"
+      }
+    }
+
+    let legend = new L.control({ position: 'topright' });
+    legend.onAdd = function (map) {
+      let div = L.DomUtil.create('div', 'outline legend'),
+        numberOfBins = [1, 10, 100],
+        populationCount = [0, 10000, 20000, 25000, 35000];
       
+      div.innerHTML += "<b>e-Waste Bins:</b> <br>"
 
+      for (i = 0; i < numberOfBins.length; i++) {
+        console.log("count: ", numberOfBins[i])
+        console.log("colour: ",getColorbyCount(numberOfBins[i]))
+        // div.innerHTML += '> ' + numberOfBins[i] + '<br>';
+        div.innerHTML += '<div style="background:' + getColorbyCount(numberOfBins[i]) + '"></div> ' +
+        numberOfBins[i] + (numberOfBins[i + 1] ? '&ndash;' + (numberOfBins[i + 1] -1) + '<br>' : '+ <br>');
+        }
+
+      div.innerHTML += '-------------- <br> <b>Population:</b> <br>';
+
+      for (j = 0; j < populationCount.length; j++) {
+        // div.innerHTML += '> ' + populationCount[j] + '<br>'; 
+        console.log((populationCount[j]))
+        div.innerHTML += '<div style="background:' + getColorbyPopulation(populationCount[j]) + '"></div> ' +
+        populationCount[j] + (populationCount[j + 1] ? '&ndash;' + (populationCount[j + 1] -1) + '<br>' : '+ <br>');
+      }
+
+      return div;
+    }
+    legend.addTo(map);
 
     const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjkwMzUsInVzZXJfaWQiOjkwMzUsImVtYWlsIjoidW5rbm93bmZhbWVAaG90bWFpbC5jb20iLCJmb3JldmVyIjpmYWxzZSwiaXNzIjoiaHR0cDpcL1wvb20yLmRmZS5vbmVtYXAuc2dcL2FwaVwvdjJcL3VzZXJcL3Nlc3Npb24iLCJpYXQiOjE2NTg3MzgzOTAsImV4cCI6MTY1OTE3MDM5MCwibmJmIjoxNjU4NzM4MzkwLCJqdGkiOiIzMTE1NzczZDJlNTVkYWNkNGVmNGZlN2U5YjZiMzAzZSJ9.YwVZDxosJcDfW-C7opbsEaxHagplqsgF2K58BhqcwTw"
 
 
 
-      //Add marker cluster using e-waste bins data
+    //Add marker cluster using e-waste bins data
     fetch('https://developers.onemap.sg//privateapi/themesvc/retrieveTheme?queryName=ewaste_new&token=' + token)
-    .then(response => response.json())
-    .then(data => { 
+      .then(response => response.json())
+      .then(data => {
         // console.log("data" , data.SrchResults);
 
         var markers = L.markerClusterGroup({ chunkedLoading: true });
@@ -213,109 +283,111 @@ justify-content: center;
           const item = data.SrchResults[i];
           const buildingName = item.ADDRESSBUILDINGNAME;
           const postalCode = item.ADDRESSPOSTALCODE;
-          const lat= item.LatLng.split(",")[0];
-          const lng= item.LatLng.split(",")[1];
+          const lat = item.LatLng.split(",")[0];
+          const lng = item.LatLng.split(",")[1];
 
           // console.log("item", item);
-          
-        var marker = L.marker(L.latLng(lat,lng));
+
+          var marker = L.marker(L.latLng(lat, lng));
 
 
           //bind popup
-        marker.bindPopup(`
+          marker.bindPopup(`
               <b> Building Name: </b> ${buildingName} <br>
               <b> Planning Area: </b> ${postalCode} <br>
               `)
 
-        markers.addLayer(marker);
+          markers.addLayer(marker);
         }
         map.addLayer(markers);
 
-    });
-    
-    </script>
 
-    <script> //Script for bar chart
 
-      // set the dimensions and margins of the graph
-      const margin = {top: 30, right: 30, bottom: 70, left: 60},
-          width = 500 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
+      });
 
-      // append the svg object to the body of the page
-      const svg = d3.select("#barchart")
-        .append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform", `translate(${margin.left},${margin.top})`);
+  </script>
 
-      // Parse the Data
-      d3.csv("https://persona-g.github.io/CSC3007-project/m2barchart.csv").then( function(data) {
+  <script> //Script for bar chart
 
-        console.log("data", data);
+    // set the dimensions and margins of the graph
+    const margin = { top: 30, right: 30, bottom: 70, left: 60 },
+      width = 500 - margin.left - margin.right,
+      height = 400 - margin.top - margin.bottom;
+
+    // append the svg object to the body of the page
+    const svg = d3.select("#barchart")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    // Parse the Data
+    d3.csv("https://persona-g.github.io/CSC3007-project/m2barchart.csv").then(function (data) {
+
+      console.log("data", data);
       // X axis
       const x = d3.scaleBand()
-        .range([ 0, width ])
+        .range([0, width])
         .domain(data.map(d => d.RecycleKnowledge))
         .padding(0.2);
       svg.append("g")
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisBottom(x))
         .selectAll("text")
-         .attr('class', 'axisText')
-         .attr("dy", "1em")
+        .attr('class', 'axisText')
+        .attr("dy", "1em")
 
-          // .attr("transform", "translate(50,0)")
-          // .style("text-anchor", "end");
+      // .attr("transform", "translate(50,0)")
+      // .style("text-anchor", "end");
 
       // Add Y axis
       const y = d3.scaleLinear()
         .domain([0, 100])
-        .range([ height, 0]);
+        .range([height, 0]);
       svg.append("g")
         .call(d3.axisLeft(y));
 
       // Bars
       let bars = svg.selectAll("mybar")
-      .data(data)
-      .enter()
-      .append("g");
+        .data(data)
+        .enter()
+        .append("g");
 
       // svg.selectAll("mybar")
       //   .data(data)
       //   .join("rect")
       bars.append('rect')
-          .attr("x", d => x(d.RecycleKnowledge))
-          .attr("y", d => y(d.Value))
-          .attr("width", x.bandwidth())
-          .attr("height", d => height - y(d.Value))
-          .attr("fill", function(d){ return d.Value > 50 ? "#F37878" : "#FAD9A1"});
-        
-        bars.append("text")
-        .text(function(d) { 
-            return d.Value + "%";
-        })
-        .attr("x", function(d){
-            return x(d.RecycleKnowledge) + x.bandwidth()/2 + 5;
-        })
-        .attr("y", function(d){
-          console.log("y");
-            return y(d.Value) - 5;
-        })
-        .attr("font-family" , "arial")
-        .attr("font-size" , "17px")
-        .attr("fill" , "black")
-        .attr("text-anchor", "middle");
-      })
-</script>
+        .attr("x", d => x(d.RecycleKnowledge))
+        .attr("y", d => y(d.Value))
+        .attr("width", x.bandwidth())
+        .attr("height", d => height - y(d.Value))
+        .attr("fill", function (d) { return d.Value > 50 ? "#F37878" : "#FAD9A1" });
 
-<script> //Script for pie chart
+      bars.append("text")
+        .text(function (d) {
+          return d.Value + "%";
+        })
+        .attr("x", function (d) {
+          return x(d.RecycleKnowledge) + x.bandwidth() / 2 + 5;
+        })
+        .attr("y", function (d) {
+          console.log("y");
+          return y(d.Value) - 5;
+        })
+        .attr("font-family", "arial")
+        .attr("font-size", "17px")
+        .attr("fill", "black")
+        .attr("text-anchor", "middle");
+    })
+  </script>
+
+  <script> //Script for pie chart
 
     // set the dimensions and margins of the graph
     const pieWidth = 720,
-        pieHeight = 450,
-        pieMargin = 40;
+      pieHeight = 450,
+      pieMargin = 40;
 
     // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
     const radius = Math.min(pieWidth, pieHeight) / 2 - pieMargin;
@@ -323,114 +395,113 @@ justify-content: center;
     // append the svg object to the div called 'piechart'
     const svgPie = d3.select("#piechart")
       .append("svg")
-        .attr("width", pieWidth)
-        .attr("height", pieHeight)
+      .attr("width", pieWidth)
+      .attr("height", pieHeight)
       .append("g")
-        .attr("transform", `translate(${-50 + pieWidth/2}, ${pieHeight/2})`);
+      .attr("transform", `translate(${-50 + pieWidth / 2}, ${pieHeight / 2})`);
 
-      // Parse the Data
-      d3.csv("https://persona-g.github.io/CSC3007-project/m2piechart.csv").then( function(data) {
-        console.log("pie data", data);
- 
-          // set the color scale
-          const color = d3.scaleOrdinal()
-            .range(["#d9b99b", "#AC011C", "#2D0001", "#9678b6", "#85e62c", "#8D2CE6"])
+    // Parse the Data
+    d3.csv("https://persona-g.github.io/CSC3007-project/m2piechart.csv").then(function (data) {
+      console.log("pie data", data);
 
-          // Compute the position of each group on the pie:
-          const pie = d3.pie()
-            .value(function(d) {return d.Value})
-          const data_ready = pie(data)
+      // set the color scale
+      const color = d3.scaleOrdinal()
+        .range(["#d9b99b", "#AC011C", "#2D0001", "#9678b6", "#85e62c", "#8D2CE6"])
 
-          const arcGenerator = d3.arc()
-            .innerRadius(0)
-            .outerRadius(radius)
+      // Compute the position of each group on the pie:
+      const pie = d3.pie()
+        .value(function (d) { return d.Value })
+      const data_ready = pie(data)
 
-
-
-          // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-          svgPie
-            .selectAll('g')
-            .data(data_ready)
-            .join('path')
-            .attr("class", "pieSlice")
-            .attr('d', arcGenerator
-            )
-            .attr('fill', function(d){ 
-              console.log("arc data", d.data.Value);
-              return(color(d.data.Value)) })
-            .attr("stroke", "white")
-            .style("stroke-width", "2px")
-            .style("opacity", 0.7)
-            .on("mouseover", function(event, d){
-              d3.select(".tooltip")
-              .text(d.data.DisposalMethod)
-              .style("left", (event.pageX-10) + "px")
-              .style("top", (event.pageY+10) + "px")
-              .style("visibility", "visible");
-            })
-            // .on("mousemove", function(event,d){
-            //   return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px");
-            // })
-            .on("mouseout", function(){
-              return tooltip.style("visibility", "hidden");
-            });
-
-         
-
-            //text annotation
-          svgPie
-          .selectAll('g')
-          .data(data_ready)
-          .join('text')
-          .text(function(d){ 
-            return d.data.Value + "%"
-          })
-          .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`})
-          .attr('class', 'pieText')
-          .style("text-anchor", "middle")
-          .style("font-size", 17)
+      const arcGenerator = d3.arc()
+        .innerRadius(0)
+        .outerRadius(radius)
 
 
-          //Legend
-        var tempval = 0;
-        svgPie.selectAll("mydots")
-            .data(data)
-            .enter()
-            .append("circle")
-            .attr("cx", function(d,i) {
-                    return 220
-    
-            })
-            .attr("cy", function(d,i){
-                    return -150 + i*31
-       
 
-            }) // 100 is where the first dot appears. 25 is the distance between dots
-            .attr("r", 10)
-            .style("fill", function(d){ return color(d.Value)})
-
-        // Add one dot in the legend for each name.
-        var tempvar = 0;
-        svgPie.selectAll("mylabels")
-            .data(data)
-            .enter()
-            .append("text")
-            .attr("x", function(d,i){
-                    return 235
-            }) // Distance from dot
-            .attr("y", function(d,i){
-                    return -150 + i*31.5
-           
-            }) // 100 is where the first dot appears. 25 is the distance between dots
-            .style("fill", function(d){ return color(d.Value)})
-            .text(function(d){ return d.DisposalMethod})
-            .attr("text-anchor", "left")
-            .style("alignment-baseline", "middle")
-            .style("font-size", "17px");
-      });
+      // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+      svgPie
+        .selectAll('g')
+        .data(data_ready)
+        .join('path')
+        .attr("class", "pieSlice")
+        .attr('d', arcGenerator
+        )
+        .attr('fill', function (d) {
+          console.log("arc data", d.data.Value);
+          return (color(d.data.Value))
+        })
+        .attr("stroke", "white")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.7)
+        .on("mouseover", function (event, d) {
+          d3.select(".tooltip")
+            .text(d.data.DisposalMethod)
+            .style("left", (event.pageX - 10) + "px")
+            .style("top", (event.pageY + 10) + "px")
+            .style("visibility", "visible");
+        })
+        .on("mouseout", function (event, d) {
+          d3.select(".tooltip").text("").style("visibility", "hidden");
+        });
 
 
-      
-</script>
-  </footer>
+
+      //text annotation
+      svgPie
+        .selectAll('g')
+        .data(data_ready)
+        .join('text')
+        .text(function (d) {
+          return d.data.Value + "%"
+        })
+        .attr("transform", function (d) { return `translate(${arcGenerator.centroid(d)})` })
+        .attr('class', 'pieText')
+        .style("text-anchor", "middle")
+        .style("font-size", 17)
+
+
+      //Legend
+      var tempval = 0;
+      svgPie.selectAll("mydots")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) {
+          return 220
+
+        })
+        .attr("cy", function (d, i) {
+          return -150 + i * 31
+
+
+        }) // 100 is where the first dot appears. 25 is the distance between dots
+        .attr("r", 10)
+        .style("fill", function (d) { return color(d.Value) })
+
+      // Add one dot in the legend for each name.
+      var tempvar = 0;
+      svgPie.selectAll("mylabels")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("x", function (d, i) {
+          return 235
+        }) // Distance from dot
+        .attr("y", function (d, i) {
+          return -150 + i * 31.5
+
+        }) // 100 is where the first dot appears. 25 is the distance between dots
+        .style("fill", function (d) { return color(d.Value) })
+        .text(function (d) { return d.DisposalMethod })
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle")
+        .style("font-size", "17px");
+    });
+
+
+
+  </script>
+</footer>
+
 </html>
